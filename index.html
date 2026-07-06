@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GymSkin · Catálogo Fitness</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        /* ── RESET & BASE ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(200, 0, 0, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(255, 50, 50, 0.04) 0%, transparent 50%);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141414;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d32f2f;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(200, 0, 0, 0.25);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 2.6rem;
+            color: #d32f2f;
+            filter: drop-shadow(0 0 14px rgba(200, 0, 0, 0.35));
+        }
+
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text span {
+            font-weight: 400;
+            -webkit-text-fill-color: #6a6a6a;
+            background: none;
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 0.95rem;
+            color: #a0a0a0;
+        }
+
+        .header-stats i {
+            color: #d32f2f;
+            margin-right: 0.4rem;
+        }
+
+        .header-stats .count {
+            font-weight: 700;
+            color: #f0f0f0;
+            font-size: 1.2rem;
+        }
+
+        /* ── CATÁLOGO ── */
+        .catalog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .catalog-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            letter-spacing: 0.5px;
+        }
+
+        .catalog-header h2 i {
+            color: #d32f2f;
+            margin-right: 0.6rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #a0a0a0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-chip:hover {
+            border-color: rgba(200, 0, 0, 0.4);
+            color: #e0e0e0;
+        }
+
+        .filter-chip.active {
+            background: rgba(200, 0, 0, 0.15);
+            border-color: #d32f2f;
+            color: #d32f2f;
+        }
+
+        /* ── GRID DE PRODUCTOS ── */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .product-card {
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(200, 0, 0, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #141414;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.03);
+        }
+
+        .product-image .no-image {
+            color: #3a3a3a;
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 0.25rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #a0a0a0;
+        }
+
+        .product-badge.category {
+            border-color: rgba(200, 0, 0, 0.3);
+            color: #d32f2f;
+        }
+
+        .product-body {
+            padding: 1.2rem 1.4rem 1.4rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 0.2rem;
+            color: #f0f0f0;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #d32f2f;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f0f0f0;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #7a7a7a;
+            margin-left: 0.2rem;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(20, 20, 20, 0.4);
+            border-radius: 32px;
+            border: 1px dashed rgba(255, 255, 255, 0.06);
+        }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            color: #3a3a3a;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .empty-state h3 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 400;
+            color: #6a6a6a;
+            font-size: 1.2rem;
+        }
+
+        .empty-state p {
+            color: #4a4a4a;
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+            }
+            .logo-area {
+                justify-content: center;
+            }
+            .header-stats {
+                justify-content: center;
+                gap: 1.2rem;
+                font-size: 0.85rem;
+            }
+            .catalog-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+            }
+            .catalog-header .filters {
+                justify-content: center;
+            }
+            .catalog-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .product-body {
+                padding: 0.8rem 1rem 1rem;
+            }
+            .product-name {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── TOAST / MENSAJE ── */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(200, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1rem 1.8rem;
+            color: #e0e0e0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            transform: translateY(120px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999;
+            font-size: 0.95rem;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: #d32f2f;
+            font-size: 1.3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo-area">
+                <i class="fas fa-dumbbell logo-icon"></i>
+                <span class="logo-text">GymSkin<span>.</span></span>
+            </div>
+            <div class="header-stats">
+                <span><i class="fas fa-tshirt"></i> Prendas: <span class="count" id="totalCount">0</span></span>
+                <span><i class="fas fa-tag"></i> Categorías: <span class="count" id="categoryCount">0</span></span>
+            </div>
+        </header>
+
+        <!-- CATÁLOGO -->
+        <div class="catalog-header">
+            <h2><i class="fas fa-store-alt"></i> Catálogo</h2>
+            <div class="filters" id="filterContainer">
+                <button class="filter-chip active" data-filter="all">Todos</button>
+                <button class="filter-chip" data-filter="Ropa">Ropa</button>
+                <button class="filter-chip" data-filter="Calzado">Calzado</button>
+                <button class="filter-chip" data-filter="Accesorios">Accesorios</button>
+                <button class="filter-chip" data-filter="Suplementos">Suplementos</button>
+                <button class="filter-chip" data-filter="Otros">Otros</button>
+            </div>
+        </div>
+
+        <!-- GRID DE PRODUCTOS -->
+        <div class="catalog-grid" id="catalogGrid">
+            <!-- Renderizado por JS -->
+        </div>
+
+    </div>
+
+    <!-- TOAST para notificaciones -->
+    <div class="toast" id="toast">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="toastMessage">Cargando productos...</span>
+    </div>
+
+    <script>
+        // ──────────────────────────────────────────────────────────────
+        //  STATE
+        // ──────────────────────────────────────────────────────────────
+        let products = [];
+        let currentFilter = 'all';
+
+        // DOM refs
+        const catalogGrid = document.getElementById('catalogGrid');
+        const totalCount = document.getElementById('totalCount');
+        const categoryCount = document.getElementById('categoryCount');
+        const filterContainer = document.getElementById('filterContainer');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // ──────────────────────────────────────────────────────────────
+        //  TOAST
+        // ──────────────────────────────────────────────────────────────
+        function showToast(msg, icon = 'fa-exclamation-circle') {
+            toastMessage.textContent = msg;
+            toast.querySelector('i').className = `fas ${icon}`;
+            toast.classList.add('show');
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ──────────────────────────────────────────────────────────────
+        //  RENDER
+        // ──────────────────────────────────────────────────────────────
+        function render() {
+            // Filtrar
+            let filtered = products;
+            if (currentFilter !== 'all') {
+                filtered = products.filter(p => p.category === currentFilter);
+            }
+
+            // Actualizar contadores
+            totalCount.textContent = products.length;
+            const cats = new Set(products.map(p => p.category));
+            categoryCount.textContent = cats.size;
+
+            // Grid
+            if (filtered.length === 0) {
+                catalogGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-tshirt"></i>
+                            <h3>Sin prendas en esta categoría</h3>
+                            <p>Agrega productos al archivo productos.json</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            catalogGrid.innerHTML = filtered.map(p => {
+                const imgHtml = p.image && p.image.trim() !== '' ?
+                    `<img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />` :
+                    '';
+                return `
+                        <div class="product-card">
+                            <div class="product-image">
+                                ${imgHtml}
+                                <div class="no-image" style="${p.image && p.image.trim() !== '' ? 'display:none;' : 'display:flex;'}">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <span class="product-badge category">${p.category}</span>
+                            </div>
+                            <div class="product-body">
+                                <div class="product-name">${p.name}</div>
+                                <div class="product-category">${p.category}</div>
+                                <div class="product-price">$${p.price.toFixed(2)} <span>USD</span></div>
+                            </div>
+                        </div>
+                    `;
+            }).join('');
+
+            // Actualizar filtros activos
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.dataset.filter === currentFilter);
+            });
+        }
+
+        // ──────────────────────────────────────────────────────────────
+        //  CARGAR DATOS DESDE JSON
+        // ──────────────────────────────────────────────────────────────
+        function loadProductsFromJSON() {
+            showToast('Cargando catálogo...', 'fa-spinner fa-spin');
+
+            fetch('productos.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (Array.isArray(data) && data.length > 0) {
+                        products = data;
+                        render();
+                        showToast(`✅ ${products.length} productos cargados`, 'fa-check-circle');
+                    } else {
+                        throw new Error('El archivo JSON está vacío o no tiene el formato esperado.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al cargar productos.json:', error);
+                    // Datos de ejemplo por si falla la carga
+                    products = [{
+                        id: '1',
+                        name: 'Leggings Boost',
+                        price: 49.99,
+                        category: 'Ropa',
+                        image: 'https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?w=400&h=400&fit=crop&crop=center'
+                    }, {
+                        id: '2',
+                        name: 'Sneaker Pro',
+                        price: 89.00,
+                        category: 'Calzado',
+                        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop&crop=center'
+                    }, {
+                        id: '3',
+                        name: 'Gym Bag 2.0',
+                        price: 34.50,
+                        category: 'Accesorios',
+                        image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center'
+                    }, {
+                        id: '4',
+                        name: 'Whey Protein',
+                        price: 59.90,
+                        category: 'Suplementos',
+                        image: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=400&h=400&fit=crop&crop=center'
+                    }];
+                    render();
+                    showToast('⚠️ No se encontró productos.json. Cargando ejemplos.', 'fa-exclamation-triangle');
+                });
+        }
+
+        // ──────────────────────────────────────────────────────────────
+        //  EVENTOS: FILTROS
+        // ──────────────────────────────────────────────────────────────
+        filterContainer.addEventListener('click', (e) => {
+            const chip = e.target.closest('.filter-chip');
+            if (!chip) return;
+            const filter = chip.dataset.filter;
+            if (filter === currentFilter) return;
+            currentFilter = filter;
+            render();
+        });
+
+        // ──────────────────────────────────────────────────────────────
+        //  INIT
+        // ──────────────────────────────────────────────────────────────
+        loadProductsFromJSON();
+
+        // Cerrar toast al hacer clic
+        toast.addEventListener('click', () => {
+            toast.classList.remove('show');
+        });
+
+        console.log('🏋️ GymSkin · Modo solo lectura - Cargando productos desde productos.json');
+    </script>
+
+</body>
+</html>
